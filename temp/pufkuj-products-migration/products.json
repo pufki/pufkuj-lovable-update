@@ -1,0 +1,338 @@
+[
+  {
+    "id": "EyaoE",
+    "seller_id": "axolotl-rozowy",
+    "short_code_uri": "https://pufka.1ct.eu/pl/product/EyaoE/axolotl-rozowy",
+    "name": "Axolotl różowy",
+    "short_description": "Ręcznie szydełkowany pluszak - Axolotl różowy. Idealny na prezent na każdą okazję. Gotowy do wysyłki",
+    "image": "/products/axolotl-rozowy.webp",
+    "image_thumbnail": "/products/axolotl-rozowy.webp",
+    "price": {
+      "amount": 3500,
+      "currency": "PLN"
+    },
+    "quantity_limit": null
+  },
+  {
+    "id": "kRj5J",
+    "seller_id": "axolotl-zielony",
+    "short_code_uri": "https://pufka.1ct.eu/pl/product/kRj5J/axolotl-zielony",
+    "name": "Axolotl zielony",
+    "short_description": "Ręcznie szydełkowany pluszak - Axolotl zielony. Idealny na prezent na każdą okazję.",
+    "image": "/products/axolotl-zielony.webp",
+    "image_thumbnail": "/products/axolotl-zielony.webp",
+    "price": {
+      "amount": 3500,
+      "currency": "PLN"
+    },
+    "quantity_limit": null
+  },
+  {
+    "id": "XD5EB",
+    "seller_id": "bezczelny-zolwik",
+    "short_code_uri": "https://pufka.1ct.eu/pl/product/XD5EB/bezczelny-zolwik",
+    "name": "Bezczelny żółwik",
+    "short_description": "Ręcznie szydełkowany pluszak - Bezczelny zółwik. Idealny na prezent na każdą okazję.",
+    "image": "/products/bezczelny-zolwik.webp",
+    "image_thumbnail": "/products/bezczelny-zolwik.webp",
+    "price": {
+      "amount": 4500,
+      "currency": "PLN"
+    },
+    "quantity_limit": null
+  },
+  {
+    "id": "GnaoY",
+    "seller_id": "brelok-arbuz",
+    "short_code_uri": "https://pufka.1ct.eu/pl/product/GnaoY/brelok-arbuz",
+    "name": "Brelok - arbuz",
+    "short_description": "Ręcznie szydełkowany brelok - arbuz. Idealny do klucz i prezent na każdą okazję.",
+    "image": "/products/brelok-arbuz.webp",
+    "image_thumbnail": "/products/brelok-arbuz.webp",
+    "price": {
+      "amount": 2500,
+      "currency": "PLN"
+    },
+    "quantity_limit": null
+  },
+  {
+    "id": "Zr5E4",
+    "seller_id": "brelok-borowka",
+    "short_code_uri": "https://pufka.1ct.eu/pl/product/Zr5E4/brelok-borowka",
+    "name": "Brelok - borówka",
+    "short_description": "Ręcznie szydełkowany brelok - borówka. Idealny do kluczy i prezent na każdą okazję.",
+    "image": "/products/brelok-borowka.webp",
+    "image_thumbnail": "/products/brelok-borowka.webp",
+    "price": {
+      "amount": 3000,
+      "currency": "PLN"
+    },
+    "quantity_limit": null
+  },
+  {
+    "id": "ea5yn",
+    "seller_id": "brelok-krab",
+    "short_code_uri": "https://pufka.1ct.eu/pl/product/ea5yn/brelok-krab",
+    "name": "Brelok - krab",
+    "short_description": "Ręcznie szydełkowany brelok - krab. Idealny do kluczy i prezent na każdą okazję.",
+    "image": "/products/brelok-krab.webp",
+    "image_thumbnail": "/products/brelok-krab.webp",
+    "price": {
+      "amount": 2500,
+      "currency": "PLN"
+    },
+    "quantity_limit": null
+  },
+  {
+    "id": "KBE98",
+    "seller_id": "brelok-niebieski-wielorybek",
+    "short_code_uri": "https://pufka.1ct.eu/pl/product/KBE98/brelok-niebieski-wielorybek",
+    "name": "Brelok - niebieski wielorybek",
+    "short_description": "Ręcznie szydełkowany brelok - niebieski wielorybek. Idealny do kluczy i prezent na każdą okazję.",
+    "image": "/products/brelok-niebieski-wielorybek.webp",
+    "image_thumbnail": "/products/brelok-niebieski-wielorybek.webp",
+    "price": {
+      "amount": 2500,
+      "currency": "PLN"
+    },
+    "quantity_limit": null
+  },
+  {
+    "id": "Deaob",
+    "seller_id": "brelok-pomarancza",
+    "short_code_uri": "https://pufka.1ct.eu/pl/product/Deaob/brelok-pomarancza",
+    "name": "Brelok - pomarańcza",
+    "short_description": "Ręcznie szydełkowany brelok - pomarańcza. Idealny do kluczy i prezent na każdą okazję.",
+    "image": "/products/brelok-pomarancza.webp",
+    "image_thumbnail": "/products/brelok-pomarancza.webp",
+    "price": {
+      "amount": 3000,
+      "currency": "PLN"
+    },
+    "quantity_limit": null
+  },
+  {
+    "id": "VO6ED",
+    "seller_id": "duza-truskawka",
+    "short_code_uri": "https://pufka.1ct.eu/pl/product/VO6ED/duza-truskawka",
+    "name": "Duża truskawka",
+    "short_description": "Ręcznie szydełkowany pluszak - Duża truskawka. Idealna na prezent na każdą okazję.",
+    "image": "/products/duza-truskawka.webp",
+    "image_thumbnail": "/products/duza-truskawka.webp",
+    "price": {
+      "amount": 7500,
+      "currency": "PLN"
+    },
+    "quantity_limit": null
+  },
+  {
+    "id": "8Namd",
+    "seller_id": "gekon-bezowy",
+    "short_code_uri": "https://pufka.1ct.eu/pl/product/8Namd/gekon-bezowy",
+    "name": "Gekon beżowy",
+    "short_description": "Ręcznie szydełkowany pluszak - Gekon beżowy. Idealny na prezent na każdą okazję.",
+    "image": "/products/gekon-bezowy.webp",
+    "image_thumbnail": "/products/gekon-bezowy.webp",
+    "price": {
+      "amount": 3500,
+      "currency": "PLN"
+    },
+    "quantity_limit": null
+  },
+  {
+    "id": "OY5oN",
+    "seller_id": "gekon-ciemno-zielony",
+    "short_code_uri": "https://pufka.1ct.eu/pl/product/OY5oN/gekon-ciemno-zielony",
+    "name": "Gekon ciemno-zielony",
+    "short_description": "Ręcznie szydełkowany pluszak - Gekon ciemno-zielony. Idealny na prezent na każdą okazję.",
+    "image": "/products/gekon-ciemno-zielony.webp",
+    "image_thumbnail": "/products/gekon-ciemno-zielony.webp",
+    "price": {
+      "amount": 3500,
+      "currency": "PLN"
+    },
+    "quantity_limit": null
+  },
+  {
+    "id": "236py",
+    "seller_id": "ges-z-kanapka",
+    "short_code_uri": "https://pufka.1ct.eu/pl/product/236py/ges-z-kanapka",
+    "name": "Gęś z kanapką",
+    "short_description": "Ręcznie szydełkowany pluszak - Gęś z kanapką. Idealna na prezent na każdą okazję.",
+    "image": "/products/ges-z-kanapka.webp",
+    "image_thumbnail": "/products/ges-z-kanapka.webp",
+    "price": {
+      "amount": 7500,
+      "currency": "PLN"
+    },
+    "quantity_limit": null
+  },
+  {
+    "id": "06aK6",
+    "seller_id": "kalamarnica",
+    "short_code_uri": "https://pufka.1ct.eu/pl/product/06aK6/kalamarnica",
+    "name": "Kałamarnica",
+    "short_description": "Ręcznie szydełkowany pluszak - Kałamarnica. Idealna na prezent na każdą okazję.",
+    "image": "/products/kalamarnica.webp",
+    "image_thumbnail": "/products/kalamarnica.webp",
+    "price": {
+      "amount": 3500,
+      "currency": "PLN"
+    },
+    "quantity_limit": null
+  },
+  {
+    "id": "r0jK6",
+    "seller_id": "osmiornica-mala-fioletowa",
+    "short_code_uri": "https://pufka.1ct.eu/pl/product/r0jK6/osmiornica-mala-fioletowa",
+    "name": "Ośmiornica mała fioletowa",
+    "short_description": "Ręcznie szydełkowany pluszak - Ośmiornica mała fioletowa. Idealna na prezent na każdą okazję",
+    "image": "/products/osmiornica-mala-fioletowa.webp",
+    "image_thumbnail": "/products/osmiornica-mala-fioletowa.webp",
+    "price": {
+      "amount": 4000,
+      "currency": "PLN"
+    },
+    "quantity_limit": null
+  },
+  {
+    "id": "XD5OR",
+    "seller_id": "osmiornica-mala-morska",
+    "short_code_uri": "https://pufka.1ct.eu/pl/product/XD5OR/osmiornica-mala-morska",
+    "name": "Ośmiornica mała morska",
+    "short_description": "Ręcznie szydełkowany pluszak - ośmiornica mała morska. Idealna na prezent na każdą okazję.",
+    "image": "/products/osmiornica-mala-morska.webp",
+    "image_thumbnail": "/products/osmiornica-mala-morska.webp",
+    "price": {
+      "amount": 4000,
+      "currency": "PLN"
+    },
+    "quantity_limit": null
+  },
+  {
+    "id": "Dea0w",
+    "seller_id": "osmiornica-mala-niebieska",
+    "short_code_uri": "https://pufka.1ct.eu/pl/product/Dea0w/osmiornica-mala-niebieska",
+    "name": "Ośmiornica mała niebieska",
+    "short_description": "Ręczenie szydełkowany pluszak - Ośmiornica mała niebieska. Idealna na prezent na każdą okazję.",
+    "image": "/products/osmiornica-mala-niebieska.webp",
+    "image_thumbnail": "/products/osmiornica-mala-niebieska.webp",
+    "price": {
+      "amount": 4000,
+      "currency": "PLN"
+    },
+    "quantity_limit": null
+  },
+  {
+    "id": "nvjNp",
+    "seller_id": "osmiornica-srednia-fioletowa",
+    "short_code_uri": "https://pufka.1ct.eu/pl/product/nvjNp/osmiornica-srednia-fioletowa",
+    "name": "Ośmiornica średnia fioletowa",
+    "short_description": "Ręczenie szydełkowany pluszak - Ośmiornica srednia fioletowa. Idealna na prezent na każdą okazję. Gotowa do wysyłki",
+    "image": "/products/osmiornica-srednia-fioletowa.webp",
+    "image_thumbnail": "/products/osmiornica-srednia-fioletowa.webp",
+    "price": {
+      "amount": 4500,
+      "currency": "PLN"
+    },
+    "quantity_limit": null
+  },
+  {
+    "id": "Zr50R",
+    "seller_id": "osmiornica-srednia-niebieska",
+    "short_code_uri": "https://pufka.1ct.eu/pl/product/Zr50R/osmiornica-srednia-niebieska",
+    "name": "Ośmiornica średnia niebieska",
+    "short_description": "Ręcznie szydełkowany pluszak - Ośmiornica średnia niebieska. Idealna na prezent na każdą okazję.",
+    "image": "/products/osmiornica-srednia-niebieska.webp",
+    "image_thumbnail": "/products/osmiornica-srednia-niebieska.webp",
+    "price": {
+      "amount": 4500,
+      "currency": "PLN"
+    },
+    "quantity_limit": null
+  },
+  {
+    "id": "VO6Vj",
+    "seller_id": "plaszczka-niebieska",
+    "short_code_uri": "https://pufka.1ct.eu/pl/product/VO6Vj/plaszczka-niebieska",
+    "name": "Płaszczka niebieska",
+    "short_description": "Ręcznie szydełkowany pluszak - Płasczka niebieska. Idealna na prezent na każdą okazję.",
+    "image": "/products/plaszczka-niebieska.webp",
+    "image_thumbnail": "/products/plaszczka-niebieska.webp",
+    "price": {
+      "amount": 3000,
+      "currency": "PLN"
+    },
+    "quantity_limit": null
+  },
+  {
+    "id": "06aKk",
+    "seller_id": "ptak-golab",
+    "short_code_uri": "https://pufka.1ct.eu/pl/product/06aKk/ptak-golab",
+    "name": "Ptak - gołąb",
+    "short_description": "Ręcznie szydełkowany pluszak - Ptak gołąb. Idealny na prezent na każdą okazję.",
+    "image": "/products/ptak-golab.webp",
+    "image_thumbnail": "/products/ptak-golab.webp",
+    "price": {
+      "amount": 5000,
+      "currency": "PLN"
+    },
+    "quantity_limit": null
+  },
+  {
+    "id": "236pW",
+    "seller_id": "ptak-kurczak",
+    "short_code_uri": "https://pufka.1ct.eu/pl/product/236pW/ptak-kurczak",
+    "name": "Ptak - kurczak",
+    "short_description": "Ręcznie szydełkowany pluszak - Ptak kurczak. Idealny na prezent na każdą okazję.",
+    "image": "/products/ptak-kurczak.webp",
+    "image_thumbnail": "/products/ptak-kurczak.webp",
+    "price": {
+      "amount": 4500,
+      "currency": "PLN"
+    },
+    "quantity_limit": null
+  },
+  {
+    "id": "8NaJy",
+    "seller_id": "ptak-mewa",
+    "short_code_uri": "https://pufka.1ct.eu/pl/product/8NaJy/ptak-mewa",
+    "name": "Ptak - mewa",
+    "short_description": "Ręcznie szydełkowany pluszak - Ptak mewa. Idealna na prezent na każdą okazję.",
+    "image": "/products/ptak-mewa.webp",
+    "image_thumbnail": "/products/ptak-mewa.webp",
+    "price": {
+      "amount": 4500,
+      "currency": "PLN"
+    },
+    "quantity_limit": null
+  },
+  {
+    "id": "OY5y6",
+    "seller_id": "ptak-orzel",
+    "short_code_uri": "https://pufka.1ct.eu/pl/product/OY5y6/ptak-orzel",
+    "name": "Ptak - orzeł",
+    "short_description": "Ręcznie szydełkowany pluszak - Ptak orzeł. Idealny na prezent na każdą okazję.",
+    "image": "/products/ptak-orzel.webp",
+    "image_thumbnail": "/products/ptak-orzel.webp",
+    "price": {
+      "amount": 4500,
+      "currency": "PLN"
+    },
+    "quantity_limit": null
+  },
+  {
+    "id": "ea5ym",
+    "seller_id": "zjarana-kaczka",
+    "short_code_uri": "https://pufka.1ct.eu/pl/product/ea5ym/zjarana-kaczka",
+    "name": "Zjarana kaczka",
+    "short_description": "Ręczenie szydełkowany pluszak - Zjarana kaczka. Idealna na prezent na każdą okazję.",
+    "image": "/products/zjarana-kaczka.webp",
+    "image_thumbnail": "/products/zjarana-kaczka.webp",
+    "price": {
+      "amount": 7500,
+      "currency": "PLN"
+    },
+    "quantity_limit": null
+  }
+]

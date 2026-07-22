@@ -132,6 +132,47 @@ const demoProducts: Product[] = demoProductsRaw.map(normalizeProduct);
 
 export const getProducts = createServerFn({ method: "GET" }).handler(
   async (): Promise<{ products: Product[]; demo: boolean }> => {
+    try {
+      const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+      const { data, error } = await supabaseAdmin
+        .from("products")
+        .select("*")
+        .eq("is_active", true)
+        .order("sort_order", { ascending: true });
+
+      if (error) {
+        console.error("Błąd pobierania produktów z Supabase:", error);
+      } else if (data && data.length > 0) {
+        const supabaseProducts: Product[] = data.map((p) => {
+          const imageUrl = p.image_path
+            ? `${process.env.SUPABASE_URL ?? process.env.VITE_SUPABASE_URL}/storage/v1/object/public/products/${p.image_path}`
+            : null;
+            
+          return {
+            id: p.id,
+            seller_id: p.slug, // Używamy sluga jako seller_id (identyfikator produktu)
+            short_code_uri: `#${p.slug}`,
+            name: p.name,
+            short_description: p.short_description,
+            image: imageUrl,
+            image_thumbnail: imageUrl,
+            price: p.price_grosze,
+            price_amount: p.price_grosze,
+            price_formatted: new Intl.NumberFormat("pl-PL", { style: "currency", currency: p.currency }).format(p.price_grosze / 100),
+            price_currency: p.currency,
+            quantity_limit: p.quantity_limit,
+          };
+        });
+        return { products: supabaseProducts, demo: false };
+      }
+    } catch (e) {
+      console.error("Błąd krytyczny Supabase:", e);
+    }
+
+    if (process.env.USE_LOCAL_SEED === "true") {
+      return { products: demoProducts, demo: true };
+    }
+
     const apiKey = process.env.ONECART_API_KEY;
     const clientId = process.env.ONECART_CLIENT_ID;
     const apiUrl = process.env.ONECART_API_URL ?? "https://api.1cart.eu/v1";

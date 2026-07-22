@@ -114,6 +114,7 @@ function AdminOrdersPage() {
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 16, flexWrap: "wrap" }}>
           <h1 style={{ margin: 0 }}>Panel zamówień</h1>
           <div style={{ display: "flex", gap: 8 }}>
+            <Link to="/admin/products" style={btnGhost as any}>Produkty</Link>
             <Link to="/admin/users" style={btnGhost as any}>Administratorzy</Link>
             <Link to="/" style={btnGhost as any}>← Wróć do sklepu</Link>
             <button type="button" onClick={handleSignOut} style={btnGhost}>Wyloguj</button>

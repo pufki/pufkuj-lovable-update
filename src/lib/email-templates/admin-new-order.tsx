@@ -23,6 +23,8 @@ interface Props {
   shippingStreet?: string;
   shippingPostalCode?: string;
   shippingCity?: string;
+  shippingMethodLabel?: string;
+  shippingPointId?: string | null;
 }
 
 const Email = ({
@@ -35,6 +37,8 @@ const Email = ({
   shippingStreet = "",
   shippingPostalCode = "",
   shippingCity = "",
+  shippingMethodLabel = "Kurier",
+  shippingPointId = null,
 }: Props) => (
   <Html lang="pl" dir="ltr">
     <Head />
@@ -54,8 +58,12 @@ const Email = ({
         </Section>
 
         <Section style={card}>
-          <Heading as="h2" style={h2}>Adres wysyłki</Heading>
+          <Heading as="h2" style={h2}>Adres wysyłki ({shippingMethodLabel})</Heading>
           <Text style={p}>
+            {shippingPointId ? (
+              <strong>Paczkomat: {shippingPointId}</strong>
+            ) : null}
+            <br />
             {shippingStreet}<br />
             {shippingPostalCode} {shippingCity}
           </Text>
@@ -98,6 +106,8 @@ export const template = {
     shippingStreet: "ul. Kwiatowa 5",
     shippingPostalCode: "66-400",
     shippingCity: "Gorzów Wielkopolski",
+    shippingMethodLabel: "Paczkomat InPost",
+    shippingPointId: "WAW01M",
   },
 } satisfies TemplateEntry;
 

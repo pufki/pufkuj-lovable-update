@@ -28,6 +28,8 @@ const startInput = z.object({
     .trim()
     .regex(/^\d{2}-\d{3}$/, "Podaj kod pocztowy w formacie 00-000"),
   city: z.string().trim().min(2, "Podaj miasto").max(120),
+  shippingMethod: z.enum(["courier", "inpost"]).default("courier"),
+  shippingPointId: z.string().nullable().optional(),
   items: z.array(itemSchema).min(1, "Koszyk jest pusty").max(20),
 });
 
@@ -66,7 +68,11 @@ export const startCheckout = createServerFn({ method: "POST" })
       (sum, it) => sum + it.price_grosze * it.quantity,
       0,
     );
-    const total = itemsTotal + SHIPPING.amount_grosze;
+    
+    const shipping_amount = data.shippingMethod === "inpost" ? 1500 : SHIPPING.amount_grosze;
+    const shipping_label = data.shippingMethod === "inpost" ? "Paczkomat InPost" : SHIPPING.label;
+    
+    const total = itemsTotal + shipping_amount;
     const itemsCount = data.items.reduce((sum, it) => sum + it.quantity, 0);
 
     const { data: order, error } = await supabaseAdmin
@@ -80,9 +86,10 @@ export const startCheckout = createServerFn({ method: "POST" })
         shipping_street: data.street,
         shipping_postal_code: data.postalCode,
         shipping_city: data.city,
-        shipping_method: SHIPPING.method,
-        shipping_method_label: SHIPPING.label,
-        shipping_cost_grosze: SHIPPING.amount_grosze,
+        shipping_method: data.shippingMethod,
+        shipping_method_label: shipping_label,
+        shipping_point_id: data.shippingPointId,
+        shipping_cost_grosze: shipping_amount,
         items: data.items,
         items_total_grosze: itemsTotal,
         total_grosze: total,
@@ -107,7 +114,7 @@ export const startCheckout = createServerFn({ method: "POST" })
         quantity: it.quantity,
         image: it.image ?? null,
       })),
-      shipping: { label: SHIPPING.label, amount_grosze: SHIPPING.amount_grosze },
+      shipping: { label: shipping_label, amount_grosze: shipping_amount },
       customerEmail: data.customerEmail,
       orderId: order.id,
       successUrl: `${origin}/checkout/return?session_id={CHECKOUT_SESSION_ID}`,
@@ -198,6 +205,8 @@ export const confirmCheckout = createServerFn({ method: "POST" })
           shippingStreet: order.shipping_street,
           shippingPostalCode: order.shipping_postal_code,
           shippingCity: order.shipping_city,
+          shippingMethodLabel: order.shipping_method_label,
+          shippingPointId: order.shipping_point_id,
         };
         await Promise.allSettled([
           sendTemplateEmail("order-confirmation", order.customer_email, {

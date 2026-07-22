@@ -103,7 +103,8 @@ function AdminUsersPage() {
           <h1 style={{ margin: 0 }}>Administratorzy</h1>
           <div style={{ display: "flex", gap: 8 }}>
             <Link to="/admin/orders" style={btnGhost as any}>Zamówienia</Link>
-            <Link to="/" style={btnGhost as any}>← Wróć do sklepu</Link>
+            <Link to="/admin/products" style={btnGhost as any}>Produkty</Link>
+            <Link to="/" style={btnGhost as any}>← Sklep</Link>
             <button type="button" onClick={handleSignOut} style={btnGhost}>Wyloguj</button>
           </div>
         </div>

@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
 import { startCheckout } from "@/lib/checkout.functions";
 import { LegalShell } from "@/components/legal-shell";
+import { InPostWidget } from "@/components/inpost-widget";
 
 type CartMap = Record<string, number>;
 type CartSnapshotItem = {
@@ -93,6 +94,8 @@ function CheckoutPage() {
     postalCode: "",
     city: "",
   });
+  const [shippingMethod, setShippingMethod] = useState<"courier" | "inpost">("courier");
+  const [inpostLocker, setInpostLocker] = useState<{ name: string; address_details: any } | null>(null);
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitting, setSubmitting] = useState(false);
 
@@ -120,7 +123,8 @@ function CheckoutPage() {
       ),
     [snapshot],
   );
-  const total = itemsTotal + SHIPPING_GROSZE;
+  const shippingCost = shippingMethod === "inpost" ? 1500 : SHIPPING_GROSZE;
+  const total = itemsTotal + shippingCost;
 
   const update =
     (key: keyof typeof values) =>
@@ -140,11 +144,17 @@ function CheckoutPage() {
       toast.error("Sprawdź pola formularza — kilka wymaga uzupełnienia.");
       return;
     }
+    if (shippingMethod === "inpost" && !inpostLocker) {
+      toast.error("Proszę wybrać paczkomat z mapy.");
+      return;
+    }
     setSubmitting(true);
     try {
       const result = await startCheckoutFn({
         data: {
           ...values,
+          shippingMethod,
+          shippingPointId: inpostLocker?.name || null,
           items: snapshot.map((it) => ({
             seller_id: it.seller_id,
             name: it.name,
@@ -295,15 +305,49 @@ function CheckoutPage() {
 
         <fieldset className="customForm__group">
           <legend>Dostawa</legend>
-          <label className="customForm__check">
-            <input type="radio" checked readOnly name="shipping" />
-            <span>
-              <strong>{SHIPPING_LABEL}</strong> — {formatPln(SHIPPING_GROSZE)}{" "}
-              <span className="customForm__hint" style={{ display: "inline" }}>
-                (jedyna dostępna metoda na tym etapie)
+          <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+            <label className="customForm__check">
+              <input
+                type="radio"
+                name="shipping"
+                checked={shippingMethod === "courier"}
+                onChange={() => setShippingMethod("courier")}
+              />
+              <span>
+                <strong>{SHIPPING_LABEL}</strong> — {formatPln(SHIPPING_GROSZE)}
               </span>
-            </span>
-          </label>
+            </label>
+            <label className="customForm__check">
+              <input
+                type="radio"
+                name="shipping"
+                checked={shippingMethod === "inpost"}
+                onChange={() => setShippingMethod("inpost")}
+              />
+              <span>
+                <strong>Paczkomat InPost</strong> — {formatPln(1500)}
+              </span>
+            </label>
+          </div>
+          
+          {shippingMethod === "inpost" && (
+            <div style={{ marginTop: "1rem" }}>
+              <p style={{ marginBottom: "0.5rem" }}>Wybierz paczkomat z mapy:</p>
+              {inpostLocker ? (
+                <div style={{ padding: "1rem", backgroundColor: "#f0fdf4", border: "1px solid #bbf7d0", borderRadius: "8px", marginBottom: "1rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <div>
+                    <strong style={{ display: "block", color: "#166534" }}>Wybrany Paczkomat: {inpostLocker.name}</strong>
+                    <span style={{ fontSize: "0.9rem", color: "#15803d" }}>
+                      {inpostLocker.address_details.street} {inpostLocker.address_details.building_number}, {inpostLocker.address_details.city}
+                    </span>
+                  </div>
+                  <button type="button" onClick={() => setInpostLocker(null)} style={{ padding: "0.5rem", borderRadius: "4px", backgroundColor: "#fff", border: "1px solid #d1d5db", cursor: "pointer" }}>Zmień</button>
+                </div>
+              ) : (
+                <InPostWidget onSelect={(point) => setInpostLocker(point)} />
+              )}
+            </div>
+          )}
         </fieldset>
 
         <section className="customForm__summary" aria-label="Podsumowanie zamówienia">
@@ -312,7 +356,7 @@ function CheckoutPage() {
             <strong className="customForm__price">{formatPln(total)}</strong>
             <p className="customForm__note">
               {snapshot.reduce((sum, it) => sum + it.quantity, 0)} szt. · maskotki{" "}
-              {formatPln(itemsTotal)} + dostawa {formatPln(SHIPPING_GROSZE)}
+              {formatPln(itemsTotal)} + dostawa {formatPln(shippingCost)}
             </p>
           </div>
           <div className="customForm__actions">

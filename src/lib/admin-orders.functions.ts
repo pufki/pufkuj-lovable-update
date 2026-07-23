@@ -141,6 +141,79 @@ export const updateOrderNotes = createServerFn({ method: "POST" })
     return { success: true };
   });
 
+export const deleteOrder = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input: { orderId: string }) => {
+    if (!input?.orderId || typeof input.orderId !== "string") {
+      throw new Error("orderId is required");
+    }
+    return input;
+  })
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context.supabase, context.userId);
+
+    const { error } = await context.supabase
+      .from("orders")
+      .delete()
+      .eq("id", data.orderId);
+
+    if (error) throw new Error(error.message);
+    return { success: true };
+  });
+
+export const createManualOrder = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input: { productId: string, productName: string, priceGrosze: number, currency: string }) => input)
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context.supabase, context.userId);
+    
+    // Deduct stock
+    const { data: product, error: pError } = await context.supabase
+      .from("products")
+      .select("quantity_limit, is_active")
+      .eq("id", data.productId)
+      .single();
+      
+    if (pError || !product) throw new Error("Product not found");
+    
+    if (product.quantity_limit !== null) {
+      const newLimit = Math.max(0, product.quantity_limit - 1);
+      await context.supabase
+        .from("products")
+        .update({ quantity_limit: newLimit, is_active: newLimit > 0 ? product.is_active : false })
+        .eq("id", data.productId);
+    }
+    
+    const { error: oError } = await context.supabase
+      .from("orders")
+      .insert({
+        id: crypto.randomUUID(),
+        status: "shipped", // Manual sales are considered fulfilled
+        customer_email: "reczna.sprzedaz@pufkuj.pl",
+        customer_name: "Sprzedaż ręczna",
+        customer_phone: "-",
+        shipping_street: "-",
+        shipping_city: "-",
+        shipping_postal_code: "-",
+        items: [{
+          id: data.productId,
+          name: data.productName,
+          price_grosze: data.priceGrosze,
+          quantity: 1
+        }],
+        total_grosze: data.priceGrosze,
+        items_total_grosze: data.priceGrosze,
+        shipping_cost_grosze: 0,
+        currency: data.currency,
+        admin_notes: "Dodane ręcznie przez panel",
+        paid_at: new Date().toISOString()
+      });
+      
+    if (oError) throw new Error(oError.message);
+    
+    return { success: true };
+  });
+
 export const checkIsAdmin = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {

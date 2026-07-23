@@ -415,6 +415,9 @@ export function Storefront({
                   </div>
                   <div className="buyRow">
                     <strong>{product.price_formatted}</strong>
+                    {product.quantity_limit === 1 && (
+                      <span style={{ color: "#ef4444", fontSize: 13, fontWeight: "bold" }}>Ostatnia sztuka!</span>
+                    )}
                     <button
                       type="button"
                       onClick={() => {

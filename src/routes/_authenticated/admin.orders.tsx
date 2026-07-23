@@ -5,9 +5,9 @@ import { useState } from "react";
 import { toast } from "sonner";
 import {
   listAllOrders,
-  listAllOrders,
   markOrderShipped,
   cancelOrder,
+  deleteOrder,
   updateOrderNotes,
   checkIsAdmin,
 } from "@/lib/admin-orders.functions";
@@ -60,6 +60,7 @@ function AdminOrdersPage() {
   const fetchIsAdmin = useServerFn(checkIsAdmin);
   const shipFn = useServerFn(markOrderShipped);
   const cancelFn = useServerFn(cancelOrder);
+  const deleteFn = useServerFn(deleteOrder);
   const notesFn = useServerFn(updateOrderNotes);
 
   const [notesState, setNotesState] = useState<Record<string, string>>({});
@@ -91,6 +92,15 @@ function AdminOrdersPage() {
       qc.invalidateQueries({ queryKey: ["admin-orders"] });
     },
     onError: (e: any) => toast.error(e?.message ?? "Błąd anulowania"),
+  });
+
+  const deleteMut = useMutation({
+    mutationFn: (orderId: string) => deleteFn({ data: { orderId } }),
+    onSuccess: () => {
+      toast.success("Usunięto zamówienie całkowicie z bazy");
+      qc.invalidateQueries({ queryKey: ["admin-orders"] });
+    },
+    onError: (e: any) => toast.error(e?.message ?? "Błąd usuwania"),
   });
 
   const notesMut = useMutation({
@@ -254,8 +264,17 @@ function AdminOrdersPage() {
                   </ul>
                 </div>
 
-                {(o.status === "paid" || o.status === "pending") && (
-                  <div style={{ marginTop: 14, display: "flex", justifyContent: "flex-end", gap: 8 }}>
+                <div style={{ marginTop: 14, display: "flex", justifyContent: "flex-end", gap: 8, flexWrap: "wrap" }}>
+                  <button
+                    type="button"
+                    disabled={deleteMut.isPending}
+                    onClick={() => { if(confirm("Czy NA PEWNO chcesz usunąć to zamówienie bezpowrotnie z bazy? Zrób to tylko, jeśli to było zamówienie testowe.")) deleteMut.mutate(o.id); }}
+                    style={{...btnGhost, color: "red", borderColor: "red", opacity: 0.7}}
+                  >
+                    🗑️ Usuń całkowicie
+                  </button>
+                  
+                  {(o.status === "paid" || o.status === "pending") && (
                     <button
                       type="button"
                       disabled={cancelMut.isPending}
@@ -264,18 +283,18 @@ function AdminOrdersPage() {
                     >
                       {cancelMut.isPending ? "..." : "Anuluj zamówienie"}
                     </button>
-                    {o.status === "paid" && (
-                      <button
-                        type="button"
-                        disabled={shipMut.isPending}
-                        onClick={() => shipMut.mutate(o.id)}
-                        style={btnPrimary}
-                      >
-                        {shipMut.isPending ? "Zapisywanie…" : "✓ Oznacz jako wysłane"}
-                      </button>
-                    )}
-                  </div>
-                )}
+                  )}
+                  {o.status === "paid" && (
+                    <button
+                      type="button"
+                      disabled={shipMut.isPending}
+                      onClick={() => shipMut.mutate(o.id)}
+                      style={btnPrimary}
+                    >
+                      {shipMut.isPending ? "Zapisywanie…" : "✓ Oznacz jako wysłane"}
+                    </button>
+                  )}
+                </div>
                 {o.paid_at && (
                   <div style={{ marginTop: 8, fontSize: 12, color: "#888" }}>
                     Opłacone: {formatDate(o.paid_at)}

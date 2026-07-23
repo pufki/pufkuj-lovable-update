@@ -3,7 +3,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState, useRef } from "react";
 import { toast } from "sonner";
-import { checkIsAdmin } from "@/lib/admin-orders.functions";
+import { checkIsAdmin, createManualOrder } from "@/lib/admin-orders.functions";
 import { listAllProducts, saveProduct, deleteProduct } from "@/lib/admin-products.functions";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -24,6 +24,7 @@ function AdminProductsPage() {
   const fetchProducts = useServerFn(listAllProducts);
   const saveProductFn = useServerFn(saveProduct);
   const deleteProductFn = useServerFn(deleteProduct);
+  const createManualOrderFn = useServerFn(createManualOrder);
 
   const [editingProduct, setEditingProduct] = useState<any>(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -58,6 +59,16 @@ function AdminProductsPage() {
       qc.invalidateQueries({ queryKey: ["admin-products"] });
     },
     onError: (e: any) => toast.error(e?.message ?? "Błąd usuwania"),
+  });
+
+  const manualSaleMut = useMutation({
+    mutationFn: (p: any) => createManualOrderFn({ data: { productId: p.id, productName: p.name, priceGrosze: p.price_grosze, currency: p.currency } }),
+    onSuccess: () => {
+      toast.success("Zapisano sprzedaż ręczną!");
+      qc.invalidateQueries({ queryKey: ["admin-products"] });
+      qc.invalidateQueries({ queryKey: ["admin-orders"] });
+    },
+    onError: (e: any) => toast.error(e?.message ?? "Błąd sprzedaży"),
   });
 
   async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>, fieldName: "image_path" | "image_path_hover") {
@@ -220,10 +231,17 @@ function AdminProductsPage() {
                 )}
                 <div>
                   <div style={{ fontWeight: "bold" }}>{p.name} {p.is_active ? "" : "(Nieaktywny)"}</div>
-                  <div style={{ fontSize: 12, color: "#666" }}>{p.slug} | {p.price_grosze / 100} PLN | Limit: {p.quantity_limit ?? "brak"}</div>
+                  <div style={{ fontSize: 13, color: "#666", marginTop: 4 }}>
+                    {p.price_grosze / 100} PLN | <strong style={{ color: p.quantity_limit === 0 ? "red" : (p.quantity_limit && p.quantity_limit <= 3 ? "orange" : "green") }}>Dostępnych: {p.quantity_limit ?? "∞"} szt.</strong>
+                  </div>
                 </div>
               </div>
-              <div style={{ display: "flex", gap: 8 }}>
+              <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "flex-end" }}>
+                <button 
+                  style={{ ...btnGhost, color: "#16a34a", borderColor: "#16a34a" }} 
+                  onClick={() => { if(confirm("Stworzyć zamówienie ręczne (np. sprzedaż stacjonarna)? Zdejmie 1 sztukę z magazynu.")) manualSaleMut.mutate(p); }}
+                  disabled={p.quantity_limit === 0 || manualSaleMut.isPending}
+                >💸 Sprzedaj 1 szt.</button>
                 <button style={btnGhost} onClick={() => { setEditingProduct(p); setIsFormOpen(true); }}>Edytuj</button>
                 <button style={{ ...btnGhost, color: "red", borderColor: "red" }} onClick={() => { if(confirm("Na pewno usunąć?")) deleteMut.mutate(p.id); }}>Usuń</button>
               </div>

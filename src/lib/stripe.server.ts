@@ -88,6 +88,9 @@ export async function createCheckoutSession(input: {
     "metadata[order_id]": input.orderId,
     "payment_intent_data[metadata][order_id]": input.orderId,
     locale: "pl",
+    "payment_method_types[0]": "card",
+    "payment_method_types[1]": "blik",
+    "payment_method_types[2]": "p24",
   };
 
   input.items.forEach((item, i) => {
@@ -101,13 +104,15 @@ export async function createCheckoutSession(input: {
     }
   });
 
-  // Shipping as an extra line item (simple MVP; keeps totals honest and visible on Stripe).
-  const shippingIdx = input.items.length;
-  body[`line_items[${shippingIdx}][quantity]`] = 1;
-  body[`line_items[${shippingIdx}][price_data][currency]`] = currency;
-  body[`line_items[${shippingIdx}][price_data][unit_amount]`] = input.shipping.amount_grosze;
-  body[`line_items[${shippingIdx}][price_data][product_data][name]`] =
-    `Dostawa: ${input.shipping.label}`;
+  // Shipping as an extra line item (skip when free).
+  if (input.shipping.amount_grosze > 0) {
+    const shippingIdx = input.items.length;
+    body[`line_items[${shippingIdx}][quantity]`] = 1;
+    body[`line_items[${shippingIdx}][price_data][currency]`] = currency;
+    body[`line_items[${shippingIdx}][price_data][unit_amount]`] = input.shipping.amount_grosze;
+    body[`line_items[${shippingIdx}][price_data][product_data][name]`] =
+      `Dostawa: ${input.shipping.label}`;
+  }
 
   return stripeFetch<StripeSession>("/checkout/sessions", {
     method: "POST",

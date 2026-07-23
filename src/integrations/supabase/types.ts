@@ -14,6 +14,27 @@ export type Database = {
   }
   public: {
     Tables: {
+      error_logs: {
+        Row: {
+          id: string
+          created_at: string
+          error_message: string
+          context: string | null
+        }
+        Insert: {
+          id?: string
+          created_at?: string
+          error_message: string
+          context?: string | null
+        }
+        Update: {
+          id?: string
+          created_at?: string
+          error_message?: string
+          context?: string | null
+        }
+        Relationships: []
+      }
       orders: {
         Row: {
           created_at: string

@@ -13,6 +13,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { supabase } from "@/integrations/supabase/client";
 
+const SITE_URL = "https://pufkuj.pl";
 
 function NotFoundComponent() {
   return (
@@ -83,16 +84,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         },
         { property: "og:type", content: "website" },
         { property: "og:locale", content: "pl_PL" },
-        { property: "og:image", content: "https://pufki-shop-magic.lovable.app/og-image.png" },
+        { property: "og:image", content: `${SITE_URL}/og-image.png` },
         { property: "og:image:width", content: "1200" },
         { property: "og:image:height", content: "630" },
-        { property: "og:url", content: "https://pufki-shop-magic.lovable.app/" },
+        { property: "og:url", content: `${SITE_URL}/` },
         { name: "twitter:card", content: "summary_large_image" },
-        { name: "twitter:image", content: "https://pufki-shop-magic.lovable.app/og-image.png" },
+        { name: "twitter:image", content: `${SITE_URL}/og-image.png` },
         { name: "twitter:title", content: "Pufkuj – Ręcznie robione maskotki szydełkowe z miłością" },
         { name: "twitter:description", content: "Ręcznie robione maskotki szydełkowe z włóczki chenille. Przytulne pluszaki tworzone z pasją w Gorzowie Wielkopolskim." },
       ],
       links: [
+        { rel: "canonical", href: `${SITE_URL}/` },
         { rel: "stylesheet", href: appCss },
         { rel: "icon", type: "image/png", sizes: "32x32", href: "/favicon-32.png" },
         { rel: "icon", type: "image/png", sizes: "96x96", href: "/favicon-96.png" },
@@ -112,17 +114,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             "@context": "https://schema.org",
             "@type": "Organization",
             name: "Pufkuj",
-            url: "https://pufki-shop-magic.lovable.app",
-            logo: "https://pufki-shop-magic.lovable.app/logo-pufki.svg",
+            url: SITE_URL,
+            logo: `${SITE_URL}/logo-pufki.svg`,
             email: "kontakt@pufkuj.pl",
             sameAs: ["https://www.instagram.com/pufkuj.pl/"],
-            address: {
-              "@type": "PostalAddress",
-              streetAddress: "ul. Borowskiego 7b/7",
-              postalCode: "66-400",
-              addressLocality: "Gorzów Wielkopolski",
-              addressCountry: "PL",
-            },
           }),
         },
         {
@@ -131,7 +126,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             "@context": "https://schema.org",
             "@type": "WebSite",
             name: "Pufkuj",
-            url: "https://pufki-shop-magic.lovable.app",
+            url: SITE_URL,
             inLanguage: "pl-PL",
           }),
         },
@@ -143,7 +138,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   notFoundComponent: NotFoundComponent,
   errorComponent: ErrorComponent,
 });
-
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
@@ -192,4 +186,3 @@ function RootComponent() {
     </QueryClientProvider>
   );
 }
-

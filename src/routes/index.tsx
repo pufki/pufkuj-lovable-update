@@ -1,8 +1,10 @@
+import { useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { Storefront } from "@/components/storefront";
 import { getProducts } from "@/lib/onecart.functions";
 import { getTiktokStories } from "@/lib/tiktok.functions";
+import { trackPageView } from "@/lib/analytics";
 
 const catalogQuery = queryOptions({
   queryKey: ["catalog"],
@@ -37,6 +39,11 @@ export const Route = createFileRoute("/")({
 
 function Home() {
   const { data } = useSuspenseQuery(catalogQuery);
+
+  useEffect(() => {
+    void trackPageView();
+  }, []);
+
   const { data: tiktokStories } = useSuspenseQuery(tiktokQuery);
   return (
     <Storefront

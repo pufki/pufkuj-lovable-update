@@ -16,6 +16,17 @@ const tiktokQuery = queryOptions({
 });
 
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Pufkuj – ręcznie robione maskotki szydełkowe" },
+      {
+        name: "description",
+        content:
+          "Ręcznie robione maskotki szydełkowe z miękkiej włóczki chenille. Zobacz kolekcję Pufkuj i zamów maskotkę w Polsce.",
+      },
+    ],
+    links: [{ rel: "canonical", href: "https://pufkuj.pl/" }],
+  }),
   loader: ({ context }) =>
     Promise.all([
       context.queryClient.ensureQueryData(catalogQuery),
